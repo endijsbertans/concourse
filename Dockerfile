@@ -1,11 +1,13 @@
-FROM ubuntu:jammy AS ubuntu
+FROM paketobuildpacks/run-jammy-base AS ubuntu
 
 FROM ubuntu AS assets
+USER root
 COPY ./linux-rc/*.tgz /tmp
 RUN tar xzf /tmp/*tgz -C /usr/local
 
 
 FROM ubuntu
+USER root
 
 # auto-wire work dir for 'worker' and 'quickstart'
 ENV CONCOURSE_WORK_DIR                /worker-state
