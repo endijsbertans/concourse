@@ -1,8 +1,16 @@
 # Concourse Docker
-Please clone this repo, then change localhost to YOUR public IPV4
+Please clone this repo
+```sh
+git clone https://github.com/endijsbertans/concourse.git
+```
+Then change localhost to YOUR public IPV4
+```sh
+cd concourse
+nano docker-compose.yml
+```
+![image](https://github.com/endijsbertans/concourse/assets/97877531/26d57c17-7b03-4282-bf64-d1514f2e5345)
 
-
-To use it you'll first need to execute
+you'll first need to execute
 `./keys/generate` - this will generate credentials used to authorize the
 Concourse components with each-other:
 
@@ -36,6 +44,8 @@ $ docker-compose logs -f
 Attaching to concourse-docker_worker_1, concourse-docker_web_1, concourse-docker_db_1
 ...
 ```
+WHOLAA! check if it woorks!
+![image](https://github.com/endijsbertans/concourse/assets/97877531/f37233d5-06ad-46c7-a2dc-b84ead8babf0)
 
 ## Building `concourse/concourse`
 
