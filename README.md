@@ -1,5 +1,5 @@
 # Concourse Docker
-
+Please curl this repo, the n change localhost to YOUR public IPV4
 This Docker image simply packages up the official `concourse` binary and
 configures it as the `ENTRYPOINT`, with a bunch of sane defaults for Docker.
 
