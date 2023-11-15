@@ -1,17 +1,8 @@
 # Concourse Docker
-Please curl this repo, the n change localhost to YOUR public IPV4
+Please clone this repo, then change localhost to YOUR public IPV4
 
 
-While adding the `CONCOURSE_*` environment variables for worker in `docker-compose.yml`, please be mindful to configure the desired [container runtime](https://concourse-ci.org/concourse-worker.html#configuring-runtimes) appropriately.
-
-See [the Concourse install docs](https://concourse-ci.org/install.html) for more
-information on deploying and managing Concourse - the Docker repository just
-wraps the `concourse` binary, so the documentation covers it too.
-
-## Running with `docker-compose`
-
-The `docker-compose.yml` in this repo will get you up and running with the
-latest version Concourse. To use it you'll first need to execute
+To use it you'll first need to execute
 `./keys/generate` - this will generate credentials used to authorize the
 Concourse components with each-other:
 
@@ -45,14 +36,6 @@ $ docker-compose logs -f
 Attaching to concourse-docker_worker_1, concourse-docker_web_1, concourse-docker_db_1
 ...
 ```
-
-## Running with `docker run`
-
-Concourse components can also be run with regular old `docker run` commands.
-Please use `docker-compose.yml` as the canonical reference for the necessary
-flags/vars and connections between components. Further documentation on
-configuring Concourse is available in the [Concourse Install
-docs](https://concourse-ci.org/install.html).
 
 ## Building `concourse/concourse`
 
