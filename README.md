@@ -86,3 +86,11 @@ $ fly -t tutorial unpause-pipeline -p hello-world
 # trigger the job and watch it run to completion
 $ fly -t tutorial trigger-job --job hello-world/hello-world-job --watch
 ```
+Also some nice commands for troubleshooting <3
+```sh
+    fly -t <target> builds -j <pipeline>/<job>
+    fly -t <target> hijack -j <pipeline>/<job> --build <build-id>
+    fly -t <target> intercept -j <pipeline>/<job> --build <build-id>
+    fly -t <target> workers
+    fly targets
+```
