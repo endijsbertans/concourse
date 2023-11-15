@@ -88,9 +88,9 @@ $ fly -t tutorial trigger-job --job hello-world/hello-world-job --watch
 ```
 Also some nice commands for troubleshooting <3
 ```sh
-    fly -t <target> builds -j <pipeline>/<job>
-    fly -t <target> hijack -j <pipeline>/<job> --build <build-id>
-    fly -t <target> intercept -j <pipeline>/<job> --build <build-id>
-    fly -t <target> workers
-    fly targets
+fly -t <target> builds -j <pipeline>/<job>
+fly -t <target> hijack -j <pipeline>/<job> --build <build-id>
+fly -t <target> intercept -j <pipeline>/<job> --build <build-id>
+fly -t <target> workers
+fly targets
 ```
