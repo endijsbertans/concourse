@@ -1,21 +1,6 @@
 # Concourse Docker
 Please curl this repo, the n change localhost to YOUR public IPV4
-This Docker image simply packages up the official `concourse` binary and
-configures it as the `ENTRYPOINT`, with a bunch of sane defaults for Docker.
 
-Configuration is done via `CONCOURSE_*` environment variables. To discover
-them, run `--help`:
-
-```sh
-docker run -t concourse/concourse --help
-docker run -t concourse/concourse web --help
-docker run -t concourse/concourse worker --help
-```
-
-Concourse worker can be run with multiple [container runtimes](https://concourse-ci.org/concourse-worker.html#configuring-runtimes):
-* [containerd](https://github.com/containerd/containerd/)
-* [Guardian](https://github.com/cloudfoundry/guardian)
-* [Houdini](https://github.com/vito/houdini)
 
 While adding the `CONCOURSE_*` environment variables for worker in `docker-compose.yml`, please be mindful to configure the desired [container runtime](https://concourse-ci.org/concourse-worker.html#configuring-runtimes) appropriately.
 
