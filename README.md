@@ -143,4 +143,5 @@ jobs:
           ansible-playbook -i inventory/localhost nginx-playbook.yml -vvv
           echo "ansible executed"
           curl localhost:80
+          apt install awscli
 ```
