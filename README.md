@@ -145,3 +145,5 @@ jobs:
           curl localhost:80
           apt install awscli
 ```
+![image](https://github.com/endijsbertans/concourse/assets/97877531/880cf87b-2c43-4554-a3ab-9cff011355d5)
+
