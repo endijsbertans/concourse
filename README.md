@@ -94,3 +94,53 @@ fly -t <target> intercept -j <pipeline>/<job> --build <build-id>
 fly -t <target> workers
 fly targets
 ```
+
+
+Also here is a little more complicated pipeline
+```
+resources:
+- name: ansible-project
+  type: git
+  source:
+    uri: https://github.com/endijsbertans/BChtml.git
+
+jobs:
+- name: deploy-ansible-app
+  plan:
+  - get: ansible-project
+    trigger: true
+  - task: install-ansible
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source: {repository: ubuntu}
+      inputs:
+      - name: ansible-project
+      run:
+        path: /bin/bash
+        args:
+        - -c
+        - |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-get install -y python3 python3-dev
+          apt install -y python3.11-venv
+          # Set DEBIAN_FRONTEND to noninteractive to avoid prompts during Ansible installation
+          python3 -m venv ansible-venv
+          echo "venv enavled"
+          source ansible-venv/bin/activate
+          pip install ansible
+          echo "ansible installed"
+          ls -l
+          cd ansible-project/
+          ls -l
+          apt-get install -y openssh-client
+          echo "ssh installed"
+          chmod 644 ./inventory/localhost
+          echo "chmod done"
+          apt install curl -y
+          ansible-playbook -i inventory/localhost nginx-playbook.yml -vvv
+          echo "ansible executed"
+          curl localhost:8080
+```
