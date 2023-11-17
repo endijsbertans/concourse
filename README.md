@@ -98,25 +98,39 @@ fly targets
 
 Also here is a little more complicated pipeline
 ```
+esource_types:
+- name: sonar-runner
+  type: docker-image
+  source:
+    repository: cathive/concourse-sonarqube-resource
+    tag: latest
+
 resources:
-- name: ansible-project
+- name: html-project
   type: git
   source:
     uri: https://github.com/endijsbertans/BChtml.git
+- name: code-analysis
+  type: sonar-runner
+  source:
+    host_url: http://172.31.40.56:9000
+    login: sqp_4c954457f81d4f9384a147315948761ddc094d65
 
 jobs:
-- name: deploy-ansible-app
+- name: deploy-nginx
   plan:
-  - get: ansible-project
+  - get: html-project
     trigger: true
-  - task: install-ansible
+  - task: deploy-nginx
     config:
       platform: linux
       image_resource:
         type: registry-image
         source: {repository: ubuntu}
       inputs:
-      - name: ansible-project
+      - name: html-project
+      outputs:
+      - name: sonarqube-analysis-input
       run:
         path: /bin/bash
         args:
@@ -144,6 +158,15 @@ jobs:
           aws ssm send-command --instance-ids  i-0518c0bccc7f5c687 --document-name "AWS-RunShellScript" --parameters commands="sudo docker stop nginx; sudo docker rm nginx; sudo docker run -d -p 80:80 --name n>
 
           echo "test"
+
+  - in_parallel:
+    - put: code-analysis
+      params:
+        project_path: sonarqube-analysis-input
+        project_key: p2
+        sources: ["."]
+
+
 ```
 ![image](https://github.com/endijsbertans/concourse/assets/97877531/880cf87b-2c43-4554-a3ab-9cff011355d5)
 
