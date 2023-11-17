@@ -147,7 +147,7 @@ jobs:
           unzip awscliv2.zip
           ./aws/install
           curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
-          sudo dpkg -i session-manager-plugin.deb
+          dpkg -i session-manager-plugin.deb
           aws configure set region eu-west-1
           aws configure list
           aws ssm start-session --target i-03f1ef67ee684a720
