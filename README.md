@@ -141,8 +141,19 @@ jobs:
           echo "chmod done"
           apt install curl -y
           ansible-playbook -i inventory/localhost nginx-playbook.yml -vvv
-          echo "ansible executed"
+          echo "ansible executed"          apt install -y curl
+          apt install -y unzip
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
+          curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+          sudo dpkg -i session-manager-plugin.deb
+          aws configure set region eu-west-1
+          aws configure list
+          aws ssm start-session --target i-03f1ef67ee684a720
+          sudo docker run -dit -p 80:80 nginx
           curl localhost:80
+          
 ```
 ![image](https://github.com/endijsbertans/concourse/assets/97877531/880cf87b-2c43-4554-a3ab-9cff011355d5)
 
