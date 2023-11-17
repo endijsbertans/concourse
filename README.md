@@ -122,38 +122,28 @@ jobs:
         args:
         - -c
         - |
+          cp -r html-project/* sonarqube-analysis-input
           export DEBIAN_FRONTEND=noninteractive
           apt-get update
           apt-get install -y python3 python3-dev
           apt install -y python3.11-venv
           # Set DEBIAN_FRONTEND to noninteractive to avoid prompts during Ansible installation
-          python3 -m venv ansible-venv
-          echo "venv enavled"
-          source ansible-venv/bin/activate
-          pip install ansible
-          echo "ansible installed"
-          ls -l
-          cd ansible-project/
-          ls -l
-          apt-get install -y openssh-client
-          echo "ssh installed"
-          chmod 644 ./inventory/localhost
-          echo "chmod done"
           apt install curl -y
-          ansible-playbook -i inventory/localhost nginx-playbook.yml -vvv
-          echo "ansible executed"          apt install -y curl
+          echo "ansible executed"
+          apt install -y curl
           apt install -y unzip
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
           ./aws/install
           curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
           dpkg -i session-manager-plugin.deb
+          echo "SSM installde"
           aws configure set region eu-west-1
           aws configure list
-          aws ssm start-session --target i-03f1ef67ee684a720
-          sudo docker run -dit -p 80:80 nginx
-          curl localhost:80
-          
+          echo "region set trying to connect"
+          aws ssm send-command --instance-ids  i-0518c0bccc7f5c687 --document-name "AWS-RunShellScript" --parameters commands="sudo docker stop nginx; sudo docker rm nginx; sudo docker run -d -p 80:80 --name n>
+
+          echo "test"
 ```
 ![image](https://github.com/endijsbertans/concourse/assets/97877531/880cf87b-2c43-4554-a3ab-9cff011355d5)
 
