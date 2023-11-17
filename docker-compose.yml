@@ -74,3 +74,8 @@ services:
 
       # work with docker-compose's dns
       CONCOURSE_CONTAINERD_DNS_PROXY_ENABLE: "true"
+      
+  sonarqube:
+    image: sonarqube:10.2.1-community
+    depends_on: [web]
+    ports: ["9000:9000"]
